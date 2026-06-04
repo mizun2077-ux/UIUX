@@ -1,0 +1,284 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Hiragino Kaku Gothic ProN','Meiryo',sans-serif;}
+.screen{display:none;width:100%;min-height:520px;background:#f0f0f0;}
+.screen.active{display:block;}
+.raku-nav{background:#BF0000;display:flex;align-items:center;gap:10px;padding:6px 16px;height:44px;}
+.raku-logo{color:#fff;font-weight:700;font-size:17px;letter-spacing:.05em;cursor:pointer;white-space:nowrap;}
+.search-box{flex:1;display:flex;align-items:center;background:#fff;border-radius:3px;overflow:hidden;height:30px;}
+.search-box input{border:none;outline:none;font-size:12px;padding:0 10px;flex:1;height:100%;}
+.search-btn{background:#FF6600;border:none;color:#fff;font-size:11px;font-weight:700;padding:0 14px;height:100%;cursor:pointer;white-space:nowrap;}
+.search-btn:hover{background:#e55a00;}
+.nav-links{display:flex;gap:14px;color:#fff;font-size:10px;}
+.nav-link{cursor:pointer;white-space:nowrap;opacity:.9;}
+.nav-link:hover{opacity:1;text-decoration:underline;}
+.ad-strip{border-bottom:1px solid #ddd;overflow:hidden;display:flex;align-items:center;justify-content:space-between;}
+.ad-img{height:50px;object-fit:cover;flex:1;display:block;}
+.ad-close{cursor:pointer;color:#888;font-size:15px;padding:0 10px;background:#f5f5f5;height:50px;display:flex;align-items:center;border-left:.5px solid #ddd;flex-shrink:0;}
+.ad-close:hover{color:#333;}
+.crumb{font-size:11px;color:#666;padding:6px 16px;background:#fff;border-bottom:.5px solid #ddd;}
+.crumb span{color:#BF0000;cursor:pointer;}
+.crumb span:hover{text-decoration:underline;}
+.filter-bar{background:#fff;border-bottom:.5px solid #ddd;padding:6px 16px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.filter-chip{background:#f5f5f5;border:.5px solid #ccc;border-radius:12px;font-size:11px;padding:3px 10px;color:#555;cursor:pointer;}
+.filter-chip:hover,.filter-chip.on{background:#fff0f0;border-color:#BF0000;color:#BF0000;}
+.result-header{font-size:12px;color:#333;padding:8px 16px 4px;background:#f0f0f0;}
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:10px 16px;}
+.p-card{background:#fff;border:.5px solid #ddd;border-radius:6px;overflow:hidden;cursor:pointer;transition:border-color .15s;}
+.p-card:hover{border-color:#BF0000;}
+.p-img{width:100%;aspect-ratio:1;background:#e8e8e8;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.p-img img{width:100%;height:100%;object-fit:cover;}
+.p-info{padding:6px 8px;}
+.p-name{font-size:11px;color:#222;line-height:1.4;margin-bottom:3px;}
+.p-stars{color:#FF6600;font-size:11px;}
+.detail-wrap{display:flex;gap:0;min-height:480px;}
+.detail-left{flex:1;padding:14px 16px;overflow-y:auto;}
+.detail-right{width:220px;background:#fff;border-left:.5px solid #ddd;padding:14px;flex-shrink:0;}
+.main-img{width:100%;aspect-ratio:1;background:#e8e8e8;border-radius:6px;overflow:hidden;margin-bottom:8px;max-height:220px;display:flex;align-items:center;justify-content:center;}
+.main-img img{width:100%;height:100%;object-fit:contain;}
+.thumb-row{display:flex;gap:5px;margin-bottom:10px;}
+.thumb{width:38px;height:38px;background:#e0e0e0;border-radius:3px;border:.5px solid #ccc;cursor:pointer;overflow:hidden;}
+.thumb img{width:100%;height:100%;object-fit:cover;}
+.thumb.on{border:1.5px solid #BF0000;}
+.prod-title{font-size:13px;font-weight:700;color:#111;line-height:1.5;margin-bottom:4px;}
+.prod-stars{color:#FF6600;font-size:11px;margin-bottom:6px;}
+.prod-desc{font-size:11px;color:#444;line-height:1.7;margin-bottom:10px;}
+.spec-table{width:100%;font-size:11px;border-collapse:collapse;margin-bottom:10px;}
+.spec-table td{padding:5px 8px;border-bottom:.5px solid #eee;}
+.spec-table td:first-child{color:#666;width:40%;background:#fafafa;}
+.review-card{background:#fff;border:.5px solid #eee;border-radius:5px;padding:8px 10px;margin-bottom:6px;}
+.pay-title{font-size:12px;font-weight:700;color:#111;border-bottom:.5px solid #eee;padding-bottom:6px;margin-bottom:8px;}
+.pay-price{color:#BF0000;font-size:20px;font-weight:700;margin-bottom:2px;}
+.pay-price span{font-size:11px;font-weight:400;color:#666;}
+.pay-ship{font-size:11px;color:#444;line-height:1.8;margin-bottom:10px;}
+.btn-buy{width:100%;background:#BF0000;color:#fff;border:none;border-radius:4px;font-size:12px;font-weight:700;padding:9px 0;cursor:pointer;margin-bottom:5px;}
+.btn-buy:hover{background:#a00000;}
+.btn-cart{width:100%;background:#fff;color:#BF0000;border:1.5px solid #BF0000;border-radius:4px;font-size:12px;font-weight:700;padding:8px 0;cursor:pointer;margin-bottom:10px;}
+.btn-cart:hover{background:#fff5f5;}
+.pay-detail{font-size:10px;color:#555;}
+.pay-row{display:flex;justify-content:space-between;padding:3px 0;border-bottom:.5px solid #f0f0f0;}
+.float-pay{background:#fff;border:1.5px solid #BF0000;border-radius:20px;padding:6px 14px;font-size:11px;color:#BF0000;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:5px;margin:8px 16px;}
+.float-pay:hover{background:#fff5f5;}
+</style>
+
+<div id="s-top" class="screen active">
+  <div class="raku-nav">
+    <div class="raku-logo" onclick="goTop()">Rakuten<br><span style="font-size:9px;font-weight:400;">楽天市場</span></div>
+    <div class="search-box">
+      <input id="kw" type="text" value="椅子" placeholder="キーワードを入力">
+      <button class="search-btn" onclick="goSearch()"><i class="ti ti-search" aria-hidden="true"></i> 検索</button>
+    </div>
+    <div class="nav-links">
+      <span class="nav-link">ログイン</span>
+      <span class="nav-link">カート</span>
+      <span class="nav-link">お気に入り</span>
+    </div>
+  </div>
+  <div style="background:#fff;padding:100px 16px;text-align:center;">
+    <div style="font-size:22px;font-weight:500;color:#BF0000;">楽天市場</div>
+  </div>
+</div>
+
+<div id="s-search" class="screen">
+  <div class="raku-nav">
+    <div class="raku-logo" onclick="goTop()">Rakuten<br><span style="font-size:9px;font-weight:400;">楽天市場</span></div>
+    <div class="search-box">
+      <input id="kw2" type="text" value="椅子">
+      <button class="search-btn" onclick="goSearch()"><i class="ti ti-search" aria-hidden="true"></i> 検索</button>
+    </div>
+    <div class="nav-links">
+      <span class="nav-link">ログイン</span>
+      <span class="nav-link">カート</span>
+    </div>
+  </div>
+  <div class="ad-strip" id="ad1">
+    <img class="ad-img" src="https://r.r10s.jp/com/img/EMP/202605/0fbe52b1-d2ba-45b5-a970-ae5fbc7173f7-202606_ss_presale_1_UXD_950x50.jpg" alt="広告">
+    <span class="ad-close" onclick="document.getElementById('ad1').style.display='none'">✕</span>
+  </div>
+  <div class="crumb">トップ &gt; 家具 &gt; 椅子</div>
+  <div class="filter-bar">
+    <span style="font-size:11px;color:#666;">絞り込み：</span>
+    <span class="filter-chip on">すべて</span>
+    <span class="filter-chip">〜¥10,000</span>
+    <span class="filter-chip">送料無料</span>
+  </div>
+  <div class="result-header">「椅子」の検索結果 約 10,000件 | <span style="color:#BF0000;cursor:pointer;">おすすめ順</span> &nbsp; 価格順 &nbsp; 新着順</div>
+  <div class="product-grid">
+    <div class="p-card" onclick="goDetail(0)">
+      <div class="p-img"><img src="https://tshop.r10s.jp/lebello/cabinet/13330478/13330958/gmchairbule2.jpg?fitin=275:275" alt="椅子"></div>
+      <div class="p-info"><div class="p-name">椅子</div><div class="p-stars">★★★★☆</div></div>
+    </div>
+    <div class="p-card" onclick="goDetail(1)">
+      <div class="p-img"><svg viewBox="0 0 80 80" width="60" height="60"><rect x="20" y="42" width="40" height="5" rx="2" fill="#c8a87a"/><rect x="12" y="47" width="56" height="14" rx="3" fill="#b8946a"/><rect x="16" y="61" width="7" height="15" rx="2" fill="#8B6914"/><rect x="57" y="61" width="7" height="15" rx="2" fill="#8B6914"/><rect x="20" y="13" width="40" height="29" rx="3" fill="#c8a87a"/></svg></div>
+      <div class="p-info"><div class="p-name">椅子</div><div class="p-stars">★★★★★</div></div>
+    </div>
+    <div class="p-card" onclick="goDetail(2)">
+      <div class="p-img"><svg viewBox="0 0 80 80" width="60" height="60"><rect x="20" y="42" width="40" height="5" rx="2" fill="#2b6cb0"/><rect x="12" y="47" width="56" height="14" rx="3" fill="#2c5282"/><rect x="16" y="61" width="7" height="15" rx="2" fill="#1a365d"/><rect x="57" y="61" width="7" height="15" rx="2" fill="#1a365d"/><rect x="20" y="13" width="40" height="29" rx="3" fill="#3182ce"/></svg></div>
+      <div class="p-info"><div class="p-name">椅子</div><div class="p-stars">★★★★☆</div></div>
+    </div>
+    <div class="p-card" onclick="goDetail(3)">
+      <div class="p-img"><svg viewBox="0 0 80 80" width="60" height="60"><rect x="20" y="42" width="40" height="5" rx="2" fill="#e53e3e"/><rect x="12" y="47" width="56" height="14" rx="3" fill="#c53030"/><rect x="16" y="61" width="7" height="15" rx="2" fill="#822727"/><rect x="57" y="61" width="7" height="15" rx="2" fill="#822727"/><rect x="20" y="13" width="40" height="29" rx="3" fill="#e53e3e"/></svg></div>
+      <div class="p-info"><div class="p-name">椅子</div><div class="p-stars">★★★☆☆</div></div>
+    </div>
+    <div class="p-card" onclick="goDetail(0)">
+      <div class="p-img"><img src="https://tshop.r10s.jp/lebello/cabinet/13330478/13330958/gmchairbule2.jpg?fitin=275:275" alt="椅子"></div>
+      <div class="p-info"><div class="p-name">椅子</div><div class="p-stars">★★★★☆</div></div>
+    </div>
+    <div class="p-card" onclick="goDetail(1)">
+      <div class="p-img"><svg viewBox="0 0 80 80" width="60" height="60"><rect x="20" y="42" width="40" height="5" rx="2" fill="#d6bcfa"/><rect x="12" y="47" width="56" height="14" rx="3" fill="#b794f4"/><rect x="16" y="61" width="7" height="15" rx="2" fill="#553c9a"/><rect x="57" y="61" width="7" height="15" rx="2" fill="#553c9a"/><rect x="20" y="13" width="40" height="29" rx="3" fill="#d6bcfa"/></svg></div>
+      <div class="p-info"><div class="p-name">椅子</div><div class="p-stars">★★★★★</div></div>
+    </div>
+    <div class="p-card" onclick="goDetail(2)">
+      <div class="p-img"><svg viewBox="0 0 80 80" width="60" height="60"><rect x="20" y="42" width="40" height="5" rx="2" fill="#fbd38d"/><rect x="12" y="47" width="56" height="14" rx="3" fill="#f6ad55"/><rect x="16" y="61" width="7" height="15" rx="2" fill="#744210"/><rect x="57" y="61" width="7" height="15" rx="2" fill="#744210"/><rect x="20" y="13" width="40" height="29" rx="3" fill="#fbd38d"/></svg></div>
+      <div class="p-info"><div class="p-name">椅子</div><div class="p-stars">★★★★☆</div></div>
+    </div>
+    <div class="p-card" onclick="goDetail(3)">
+      <div class="p-img"><svg viewBox="0 0 80 80" width="60" height="60"><rect x="20" y="42" width="40" height="5" rx="2" fill="#a0aec0"/><rect x="12" y="47" width="56" height="14" rx="3" fill="#718096"/><rect x="16" y="61" width="7" height="15" rx="2" fill="#2d3748"/><rect x="57" y="61" width="7" height="15" rx="2" fill="#2d3748"/><rect x="20" y="13" width="40" height="29" rx="3" fill="#a0aec0"/></svg></div>
+      <div class="p-info"><div class="p-name">椅子</div><div class="p-stars">★★★☆☆</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="s-detail" class="screen">
+  <div class="raku-nav">
+    <div class="raku-logo" onclick="goTop()">Rakuten<br><span style="font-size:9px;font-weight:400;">楽天市場</span></div>
+    <div class="search-box">
+      <input id="kw3" type="text" value="椅子">
+      <button class="search-btn" onclick="goSearch()"><i class="ti ti-search" aria-hidden="true"></i> 検索</button>
+    </div>
+    <div class="nav-links">
+      <span class="nav-link">ログイン</span>
+      <span class="nav-link">カート</span>
+    </div>
+  </div>
+  <div class="ad-strip" id="ad2">
+    <img class="ad-img" src="https://r.r10s.jp/com/img/EMP/202605/0fbe52b1-d2ba-45b5-a970-ae5fbc7173f7-202606_ss_presale_1_UXD_950x50.jpg" alt="広告">
+    <span class="ad-close" onclick="document.getElementById('ad2').style.display='none'">✕</span>
+  </div>
+  <div class="crumb">
+    <span onclick="goTop()">トップ</span> &gt;
+    <span onclick="goSearch()">椅子・チェア</span> &gt;
+    <span id="crumb-name">椅子</span>
+  </div>
+  <div class="detail-wrap">
+    <div class="detail-left" id="detail-scroll-area">
+      <div class="main-img">
+        <img id="main-img" src="https://tshop.r10s.jp/lebello/cabinet/13330478/13330958/gmchairbule2.jpg?fitin=275:275" alt="商品画像">
+      </div>
+      <div class="thumb-row">
+        <div class="thumb on"><img src="https://tshop.r10s.jp/lebello/cabinet/13330478/13330958/gmchairbule2.jpg?fitin=275:275" alt="サムネ1"></div>
+        <div class="thumb"></div>
+        <div class="thumb"></div>
+        <div class="thumb"></div>
+      </div>
+      <div class="prod-title" id="prod-title"></div>
+      <div class="prod-stars" id="prod-stars"></div>
+      <div class="prod-desc" id="prod-desc"></div>
+      <table class="spec-table"><tbody id="spec-body"></tbody></table>
+      <div style="font-size:12px;font-weight:500;color:#222;margin-bottom:8px;border-bottom:.5px solid #ddd;padding-bottom:5px;">レビュー</div>
+      <div class="review-card"><div style="color:#FF6600;font-size:11px;">★★★★★</div><div style="font-size:11px;color:#333;margin-top:3px;line-height:1.6;" id="rev1"></div><div style="font-size:10px;color:#888;margin-top:3px;">2025年3月 購入</div></div>
+      <div class="review-card"><div style="color:#FF6600;font-size:11px;">★★★★☆</div><div style="font-size:11px;color:#333;margin-top:3px;line-height:1.6;" id="rev2"></div><div style="font-size:10px;color:#888;margin-top:3px;">2025年1月 購入</div></div>
+    </div>
+    <div class="detail-right" id="pay-panel">
+      <div class="pay-title">
+  お支払い
+  <span
+    onclick="showPayPanel()"
+    style="float:right;cursor:pointer;"
+  >✕</span>
+</div>
+      <div class="pay-price" id="pay-price">¥10,000<span>（税込）</span></div>
+      <div class="pay-point" id="pay-point"></div>
+      <div class="pay-ship">
+        <div><i class="ti ti-truck-delivery" aria-hidden="true" style="font-size:13px;"></i> </div>
+        <div><i class="ti ti-package" aria-hidden="true" style="font-size:13px;"></i> 送料無料</div>
+      </div>
+      <button class="btn-buy">今すぐ購入する</button>
+      <button class="btn-cart">カートに入れる</button>
+      <div class="pay-detail">
+        <div class="pay-row"><span></span><span style="color:green;"></span></div>
+        <div class="pay-row"><span></span><span id="pay-shop"></span></div>
+        <div class="pay-row"><span></span><span></span></div>
+      </div>
+    </div>
+  </div>
+  <div id="float-area" style="display:none;">
+<button
+    onclick="showPayPanel()"
+    style="
+        position: fixed;
+        top: 200px;
+        right: 20px;
+        z-index: 1000;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        font-size: 20px;
+        padding: 15px 10px;
+        border-radius: 10px;
+    "
+>
+    購入・お支払いを見る ◁
+</button>
+  </div>
+</div>
+
+<script>
+const products=[
+  {name:'椅子',price:'¥10,000',point:'89',stars:'★★★★☆ 4.2',shop:'',desc:'通気性に〜。',specs:[['座面サイズ','W180×D180cm'],['全体高さ','180cm'],['座面高さ','180cm'],['耐荷重','12kg'],['素材','発泡スチロール'],['カラー','ブラック'],['重量','60kg']],rev1:'座り心地よし',rev2:'座り心地よし',img:'https://tshop.r10s.jp/lebello/cabinet/13330478/13330958/gmchairbule2.jpg?fitin=275:275',crumb:'椅子'},
+  {name:'ダイニングチェア',price:'¥24,800',point:'248',stars:'★★★★★ 4.8',shop:'インテリアNORDIC',desc:'天然ウォールナット無垢材の脚部が空間に温もりを添えます。ファブリック座面は撥水加工済みでお手入れ簡単。',specs:[['座面サイズ','W42×D40cm'],['全体高さ','80cm'],['座面高さ','45cm'],['耐荷重','100kg'],['素材','ウォールナット/ポリエステル'],['カラー','ナチュラル/グレー'],['重量','5.2kg']],rev1:'座り心地よし',rev2:'座り心地よし',img:'https://tshop.r10s.jp/lebello/cabinet/13330478/13330958/gmchairbule2.jpg?fitin=275:275',crumb:'椅子'},
+  {name:'オフィスチェア',price:'¥52,000',point:'520',stars:'★★★★☆ 4.3',shop:'オフィスプロ直販',desc:'人間工学に基づいた設計で、長時間のデスクワークをサポート。ランバーサポート・ヘッドレスト・アームレストをすべて個別調整可能。',specs:[['座面サイズ','W50×D50cm'],['全体高さ','115〜130cm'],['座面高さ','43〜55cm'],['耐荷重','150kg'],['素材','メッシュ/アルミ'],['カラー','ブラック'],['重量','18kg']],rev1:'座り心地よし',rev2:'座り心地よし',img:'https://tshop.r10s.jp/lebello/cabinet/13330478/13330958/gmchairbule2.jpg?fitin=275:275',crumb:'椅子'},
+  {name:'パイプ椅子',price:'¥5,480',point:'54',stars:'★★★☆☆ 3.6',shop:'生活用品ストア',desc:'コンパクトに折りたためる軽量パイプ椅子。重ねて収納可能で場所を取りません。4脚セットでお得。',specs:[['座面サイズ','W38×D35cm'],['全体高さ','82cm'],['座面高さ','45cm'],['耐荷重','80kg'],['素材','スチール/PP樹脂'],['カラー','レッド'],['重量','2.8kg（1脚）']],rev1:'座り心地よし',rev2:'座り心地よし',img:'https://tshop.r10s.jp/lebello/cabinet/13330478/13330958/gmchairbule2.jpg?fitin=275:275',crumb:'椅子'},
+];
+
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function goTop(){show('s-top');}
+function goSearch(){show('s-search');}
+
+let payVisible=true;
+function goDetail(idx){
+  const p=products[idx];
+  document.getElementById('crumb-name').textContent=p.crumb;
+  document.getElementById('prod-title').textContent=p.name;
+document.getElementById('prod-stars').innerHTML =
+  p.stars +
+  '<span style="color:#000;cursor:pointer;font-size:10px;"> レビューを見る</span>';
+  document.getElementById('prod-desc').textContent=p.desc;
+  document.getElementById('pay-price').innerHTML=p.price+'<span>（税込）</span>';
+  document.getElementById('pay-shop').textContent=p.shop;
+  document.getElementById('rev1').textContent=p.rev1;
+  document.getElementById('rev2').textContent=p.rev2;
+  document.getElementById('main-img').src=p.img;
+  const sb=document.getElementById('spec-body');
+  sb.innerHTML='';
+  p.specs.forEach(r=>{sb.innerHTML+=`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`;});
+  payVisible=true;
+  document.getElementById('pay-panel').style.display='block';
+  document.getElementById('float-area').style.display='none';
+  const area=document.getElementById('detail-scroll-area');
+  area.scrollTop=0;
+  area.onscroll=function(){
+    if(area.scrollTop>60&&payVisible){
+      payVisible=false;
+      document.getElementById('pay-panel').style.display='none';
+      document.getElementById('float-area').style.display='block';
+    }
+  };
+  show('s-detail');
+}
+
+function showPayPanel(){
+  const panel = document.getElementById('pay-panel');
+  const btn = document.getElementById('float-area');
+
+  if(panel.style.display === 'none'){
+    panel.style.display = 'block';
+    btn.style.display = 'none';
+  }else{
+    panel.style.display = 'none';
+    btn.style.display = 'block';
+  }
+}
+document.getElementById('kw').addEventListener('keydown',function(e){if(e.key==='Enter')goSearch();});
+document.getElementById('kw2').addEventListener('keydown',function(e){if(e.key==='Enter')goSearch();});
+document.getElementById('kw3').addEventListener('keydown',function(e){if(e.key==='Enter')goSearch();});
+</script>
